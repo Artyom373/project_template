@@ -3,3 +3,4 @@ test
 pc
 pc pc
 close
+prin
