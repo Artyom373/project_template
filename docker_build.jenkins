@@ -6,21 +6,53 @@ pipeline {
     agent {
         label 'master'
         }
+<<<<<<< Updated upstream
+=======
+    triggers { pollSCM('* * * * *') }
+>>>>>>> Stashed changes
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
+<<<<<<< Updated upstream
 
+=======
+        stage("docker login") {
+           steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_semaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
+                }
+            }
+        }
+>>>>>>> Stashed changes
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
                 dir ('docker/toolbox') {
                   sh 'docker build .'
+<<<<<<< Updated upstream
 
                 }
             }
         }
 
+=======
+                	sh 'docker build -t semaev/toolbox:latest . '
+                }
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push semaev/toolbox:latest
+                '''
+            }
+        }
+>>>>>>> Stashed changes
     }
 }
