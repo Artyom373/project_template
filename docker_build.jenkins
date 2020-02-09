@@ -6,18 +6,13 @@ pipeline {
     agent {
         label 'master'
         }
-<<<<<<< Updated upstream
-=======
     triggers { pollSCM('* * * * *') }
->>>>>>> Stashed changes
+
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
-<<<<<<< Updated upstream
-
-=======
         stage("docker login") {
            steps {
                 echo " ============== docker login =================="
@@ -28,19 +23,14 @@ pipeline {
                 }
             }
         }
->>>>>>> Stashed changes
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
                 dir ('docker/toolbox') {
                   sh 'docker build .'
-<<<<<<< Updated upstream
-
                 }
             }
         }
-
-=======
                 	sh 'docker build -t semaev/toolbox:latest . '
                 }
             }
@@ -53,6 +43,5 @@ pipeline {
                 '''
             }
         }
->>>>>>> Stashed changes
     }
 }
